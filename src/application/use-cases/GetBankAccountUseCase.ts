@@ -1,15 +1,21 @@
+import { err, ok } from "@/common/Result";
 import { UserRepository } from "@/domain/repositories/UserRepository";
-import { defineDIConsumer } from "fioc-react";
+import { createDIToken } from "fioc-react";
 
-export const GetBankAccountUseCase = defineDIConsumer({
-  dependencies: [UserRepository],
-  description: "GetBankAccountUseCase",
-  factory: (userRepo) => async (userID: string) => {
+export const GetBankAccountUseCaseFactory =
+  (userRepo: UserRepository) => async (userID: string) => {
     const accountResult = await userRepo.getUserBankAccount(userID);
     if (!accountResult.ok) {
       return accountResult;
     }
 
-    return accountResult.data;
-  },
-});
+    if (!accountResult.data) {
+      return err(new Error("Bank account not found"));
+    }
+
+    return ok(accountResult.data);
+  };
+
+export const GetBankAccountUseCase = createDIToken<
+  ReturnType<typeof GetBankAccountUseCaseFactory>
+>("GetBankAccountUseCase");

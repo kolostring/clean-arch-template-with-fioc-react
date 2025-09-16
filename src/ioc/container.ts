@@ -1,21 +1,67 @@
-import { CreateUserUseCase } from "@/application/use-cases/CreateUserUseCase";
-import { DeleteUserUseCase } from "@/application/use-cases/DeleteUserUseCase";
-import { DepositUseCase } from "@/application/use-cases/DepositUseCase";
-import { GetBankAccountUseCase } from "@/application/use-cases/GetBankAccountUseCase";
-import { GetUserUseCase } from "@/application/use-cases/GetUserUseCase";
-import { WithdrawlUseCase } from "@/application/use-cases/WithdrawlUseCase";
+import {
+  CreateUserUseCase,
+  CreateUserUseCaseFactory,
+} from "@/application/use-cases/CreateUserUseCase";
+import {
+  DeleteUserUseCase,
+  DeleteUserUseCaseFactory,
+} from "@/application/use-cases/DeleteUserUseCase";
+import {
+  DepositUseCase,
+  DepositUseCaseFactory,
+} from "@/application/use-cases/DepositUseCase";
+import {
+  GetBankAccountUseCase,
+  GetBankAccountUseCaseFactory,
+} from "@/application/use-cases/GetBankAccountUseCase";
+import {
+  GetUserUseCase,
+  GetUserUseCaseFactory,
+} from "@/application/use-cases/GetUserUseCase";
+import {
+  WithdrawlUseCase,
+  WithdrawlUseCaseFactory,
+} from "@/application/use-cases/WithdrawlUseCase";
 import { UserRepository } from "@/domain/repositories/UserRepository";
 import { LocalStorageUserRepository } from "@/infrastructure/LocalStorageRepositories/LocalStorageUserRepository";
-import { buildContainer, buildManager } from "fioc-react";
+import { buildDIContainer, buildDIContainerManager } from "fioc-react";
 
-export const DI_MANAGER = buildManager().registerContainer(
-  buildContainer()
-    .register(UserRepository, LocalStorageUserRepository)
-    .registerConsumer(CreateUserUseCase)
-    .registerConsumer(DeleteUserUseCase)
-    .registerConsumer(DepositUseCase)
-    .registerConsumer(WithdrawlUseCase)
-    .registerConsumer(GetUserUseCase)
-    .registerConsumer(GetBankAccountUseCase)
-    .makeStatic()
-);
+export const DI_MANAGER = buildDIContainerManager()
+  .registerContainer(
+    buildDIContainer()
+      .register(UserRepository, LocalStorageUserRepository)
+      .registerConsumerArray([
+        {
+          token: CreateUserUseCase,
+          factory: CreateUserUseCaseFactory,
+          dependencies: [UserRepository],
+        },
+        {
+          token: DeleteUserUseCase,
+          factory: DeleteUserUseCaseFactory,
+          dependencies: [UserRepository],
+        },
+        {
+          token: DepositUseCase,
+          factory: DepositUseCaseFactory,
+          dependencies: [UserRepository],
+        },
+        {
+          token: GetBankAccountUseCase,
+          factory: GetBankAccountUseCaseFactory,
+          dependencies: [UserRepository],
+        },
+        {
+          token: GetUserUseCase,
+          factory: GetUserUseCaseFactory,
+          dependencies: [UserRepository],
+        },
+        {
+          token: WithdrawlUseCase,
+          factory: WithdrawlUseCaseFactory,
+          dependencies: [UserRepository],
+        },
+      ])
+      .getResult()
+  )
+  .getResult();
