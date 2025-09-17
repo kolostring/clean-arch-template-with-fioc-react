@@ -1,6 +1,6 @@
 import { err, Result } from "@/common/Result";
 import { UserRepository } from "@/domain/repositories/UserRepository";
-import { createDIToken } from "fioc-react";
+import { createDIToken } from "fioc";
 
 export const DeleteUserUseCaseFactory =
   (userRepo: UserRepository) =>

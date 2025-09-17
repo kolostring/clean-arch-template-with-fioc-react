@@ -1,5 +1,5 @@
 import { Result } from "@/common/Result";
-import { createDIToken } from "fioc-react";
+import { createDIToken } from "fioc";
 import { BankAccount } from "../entities/BankAccount";
 import { User } from "../entities/User";
 

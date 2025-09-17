@@ -1,6 +1,6 @@
 import { err, ok } from "@/common/Result";
 import { UserRepository } from "@/domain/repositories/UserRepository";
-import { createDIToken } from "fioc-react";
+import { createDIToken } from "fioc";
 
 export const GetBankAccountUseCaseFactory =
   (userRepo: UserRepository) => async (userID: string) => {

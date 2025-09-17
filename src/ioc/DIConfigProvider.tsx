@@ -1,6 +1,6 @@
 "use client";
 import { DependenciesProvider } from "fioc-react";
-import { DI_MANAGER } from "./container";
+import { DI_MANAGER } from "./DI_Manager";
 
 export default function DIConfigProvider({ children }: { children: any }) {
   return (

@@ -8,9 +8,15 @@ importers:
 
   .:
     dependencies:
+      fioc:
+        specifier: ^1.2.4
+        version: 1.2.4
       fioc-react:
-        specifier: ^1.3.2
-        version: 1.3.2
+        specifier: ^1.3.5
+        version: 1.3.5
+      fioc-server-utils:
+        specifier: ^1.0.0
+        version: 1.0.0
       next:
         specifier: 15.5.3
         version: 15.5.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -1004,11 +1010,14 @@ packages:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
 
-  fioc-react@1.3.2:
-    resolution: {integrity: sha512-xiG77zRpErOfqWEGEawK7yzGJb+ucOoB4IsVvRTmP/p/nPU2zuCZEcg9nvkMrOTHLzb5jWIilCFFuyvaA7jLyA==}
+  fioc-react@1.3.5:
+    resolution: {integrity: sha512-lD4ZMSFXi/r3wMNM9efbNHgowdlpZnxJbQgUzh7r0RosQ4THn97tqLbT8K+abSm6viS//fgKViXnzkVmEclp7w==}
 
-  fioc@1.2.3:
-    resolution: {integrity: sha512-hm0bv+CvdNon08Z2rDFBVoOyNw72hDGaRy0MmC7eFdwfqgbbGsS6d3kyIB+ooBNCzKNSR8AH43onXGUX/GAEGA==}
+  fioc-server-utils@1.0.0:
+    resolution: {integrity: sha512-Nrc5hlR/LRF/HojWnPFpofJKezCPDdjj8ohJYhofPqZaeBq5jrJO/YoAJW4kiv+fTdc4paupq+vuwbYZf2k3Mw==}
+
+  fioc@1.2.4:
+    resolution: {integrity: sha512-wsUC+pYNi9fJ2DeUiZjkWe6sxrgCfa2wghx+HCo2H+yeEHQ6EY9pJYtNlEpRUGblt0NU+TxK7tu67nNiEbtG7w==}
 
   flat-cache@4.0.1:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
@@ -2881,14 +2890,18 @@ snapshots:
       locate-path: 6.0.0
       path-exists: 4.0.0
 
-  fioc-react@1.3.2:
+  fioc-react@1.3.5:
     dependencies:
-      fioc: 1.2.3
+      fioc: 1.2.4
       immer: 10.1.3
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
 
-  fioc@1.2.3:
+  fioc-server-utils@1.0.0:
+    dependencies:
+      fioc: 1.2.4
+
+  fioc@1.2.4:
     dependencies:
       immer: 10.1.3
 

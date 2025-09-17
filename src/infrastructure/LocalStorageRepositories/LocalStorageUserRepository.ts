@@ -87,12 +87,8 @@ export const LocalStorageUserRepository: UserRepository = {
 };
 
 function loadFromStorage<T>(key: string): T[] {
-  try {
-    const data = localStorage.getItem(key);
-    return data ? (JSON.parse(data) as T[]) : [];
-  } catch {
-    return [];
-  }
+  const data = localStorage.getItem(key);
+  return data ? (JSON.parse(data) as T[]) : [];
 }
 
 function saveToStorage<T>(key: string, data: T[]): void {

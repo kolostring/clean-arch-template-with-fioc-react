@@ -1,7 +1,7 @@
 import { err, Result } from "@/common/Result";
 import { BankAccount } from "@/domain/entities/BankAccount";
 import { UserRepository } from "@/domain/repositories/UserRepository";
-import { createDIToken } from "fioc-react";
+import { createDIToken } from "fioc";
 
 export const DepositUseCaseFactory =
   (userRepo: UserRepository) =>
