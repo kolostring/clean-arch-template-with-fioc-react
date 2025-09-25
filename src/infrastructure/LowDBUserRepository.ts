@@ -5,9 +5,10 @@ import { UserRepository } from "@/domain/repositories/UserRepository";
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
 
-const adapter = new JSONFile<{ users: User[]; bankAccounts: BankAccount[] }>(
-  "db.json"
-);
+const adapter = new JSONFile<{
+  users: User[] | undefined;
+  bankAccounts: BankAccount[] | undefined;
+}>("db.json");
 // Updated to include default data initialization
 const db = new Low(adapter, { users: [], bankAccounts: [] });
 
@@ -21,7 +22,7 @@ export const LowDBUserRepository: UserRepository = {
     try {
       await db.read();
       const account =
-        db.data?.bankAccounts.find((a) => a.userID === userID) || null;
+        db.data?.bankAccounts?.find((a) => a.userID === userID) || null;
       return ok(account);
     } catch (e) {
       return err(e as Error);
@@ -32,10 +33,10 @@ export const LowDBUserRepository: UserRepository = {
     try {
       await db.read();
 
-      db.data.bankAccounts = db.data.bankAccounts.filter(
-        (a) => a.userID !== bankAccount.userID
-      );
-      db.data.bankAccounts.push(bankAccount);
+      db.data.bankAccounts =
+        db.data.bankAccounts?.filter((a) => a.userID !== bankAccount.userID) ??
+        [];
+      db.data.bankAccounts?.push(bankAccount);
       await db.write();
       return ok(undefined);
     } catch (e) {
@@ -47,7 +48,7 @@ export const LowDBUserRepository: UserRepository = {
     try {
       await db.read();
 
-      db.data.bankAccounts = db.data.bankAccounts.filter(
+      db.data.bankAccounts = db.data.bankAccounts?.filter(
         (a) => a.userID !== userID
       );
       await db.write();
@@ -60,7 +61,7 @@ export const LowDBUserRepository: UserRepository = {
   async getUser(userID: string): Promise<Result<User | null>> {
     try {
       await db.read();
-      const user = db.data?.users.find((u) => u.id === userID) || null;
+      const user = db.data?.users?.find((u) => u.id === userID) || null;
       return ok(user);
     } catch (e) {
       return err(e as Error);
@@ -70,7 +71,7 @@ export const LowDBUserRepository: UserRepository = {
   async getUserByEmail(email: string): Promise<Result<User | null>> {
     try {
       await db.read();
-      const user = db.data?.users.find((u) => u.email === email) || null;
+      const user = db.data?.users?.find((u) => u.email === email) || null;
       return ok(user);
     } catch (e) {
       return err(e as Error);
@@ -81,8 +82,8 @@ export const LowDBUserRepository: UserRepository = {
     try {
       await db.read();
 
-      db.data.users = db.data.users.filter((u) => u.id !== user.id);
-      db.data.users.push(user);
+      db.data.users = db.data.users?.filter((u) => u.id !== user.id) ?? [];
+      db.data.users?.push(user);
       await db.write();
       return ok(undefined);
     } catch (e) {
@@ -94,7 +95,7 @@ export const LowDBUserRepository: UserRepository = {
     try {
       await db.read();
 
-      db.data.users = db.data.users.filter((u) => u.id !== userID);
+      db.data.users = db.data.users?.filter((u) => u.id !== userID);
       await db.write();
       return ok(undefined);
     } catch (e) {

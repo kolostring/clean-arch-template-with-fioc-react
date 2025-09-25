@@ -1,4 +1,4 @@
-import { err, Result } from "@/common/Result";
+import { err, ok, Result } from "@/common/Result";
 import { BankAccount } from "@/domain/entities/BankAccount";
 import { User } from "@/domain/entities/User";
 import { UserRepository } from "@/domain/repositories/UserRepository";
@@ -10,7 +10,7 @@ export const CreateUserUseCaseFactory =
     name: string,
     email: string,
     amount: number
-  ): Promise<Result<void>> => {
+  ): Promise<Result<User>> => {
     const userResult = await userRepo.getUserByEmail(email);
     if (!userResult.ok) {
       return userResult;
@@ -35,7 +35,11 @@ export const CreateUserUseCaseFactory =
     const saveBankAccountResult = await userRepo.saveUserBankAccount(
       bankAccount
     );
-    return saveBankAccountResult;
+    if (!saveBankAccountResult.ok) {
+      return saveBankAccountResult;
+    }
+
+    return ok(user);
   };
 
 export const CreateUserUseCase =
