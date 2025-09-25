@@ -19,15 +19,15 @@ import {
   GetUserUseCaseFactory,
 } from "@/application/use-cases/GetUserUseCase";
 import {
-  WithdrawlUseCase,
-  WithdrawlUseCaseFactory,
-} from "@/application/use-cases/WithdrawlUseCase";
+  WithdrawUseCase,
+  WithdrawUseCaseFactory,
+} from "@/application/use-cases/WithdrawUseCase";
 import { UserRepository } from "@/domain/repositories/UserRepository";
-import { LocalStorageUserRepository } from "@/infrastructure/LocalStorageRepositories/LocalStorageUserRepository";
+import { LowDBUserRepository } from "@/infrastructure/LowDBUserRepository";
 import { buildDIContainer } from "fioc";
 
 export const serverContainer = buildDIContainer()
-  .register(UserRepository, LocalStorageUserRepository)
+  .register(UserRepository, LowDBUserRepository)
   .registerConsumerArray([
     {
       token: CreateUserUseCase,
@@ -55,8 +55,8 @@ export const serverContainer = buildDIContainer()
       dependencies: [UserRepository],
     },
     {
-      token: WithdrawlUseCase,
-      factory: WithdrawlUseCaseFactory,
+      token: WithdrawUseCase,
+      factory: WithdrawUseCaseFactory,
       dependencies: [UserRepository],
     },
   ])

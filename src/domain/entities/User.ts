@@ -1,3 +1,5 @@
+import { v4 as uuid } from "uuid";
+
 export type User = {
   id: string;
   name: string;
@@ -7,6 +9,6 @@ export type User = {
 export const User = {
   create: (props: { name: string; email: string }): User => ({
     ...props,
-    id: Math.random().toString(36).slice(2),
+    id: uuid(),
   }),
 };

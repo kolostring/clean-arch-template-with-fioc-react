@@ -17,13 +17,12 @@ export const DepositUseCaseFactory =
     }
 
     try {
-      BankAccount.deposit(account, amount);
+      const newState = BankAccount.deposit(account, amount);
+      const saveResult = await userRepo.saveUserBankAccount(newState);
+      return saveResult;
     } catch (e) {
       return err(e as Error);
     }
-
-    const saveResult = await userRepo.saveUserBankAccount(account);
-    return saveResult;
   };
 
 export const DepositUseCase =

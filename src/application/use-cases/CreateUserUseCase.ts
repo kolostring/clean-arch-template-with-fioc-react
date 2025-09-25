@@ -31,11 +31,6 @@ export const CreateUserUseCaseFactory =
       return saveResult;
     }
 
-    const bankAccountResult = await userRepo.getUserBankAccount(user.id);
-    if (!bankAccountResult.ok) {
-      return bankAccountResult;
-    }
-
     const bankAccount = BankAccount.create(user.id, amount);
     const saveBankAccountResult = await userRepo.saveUserBankAccount(
       bankAccount

@@ -6,7 +6,7 @@ import { DeleteUserUseCase } from "@/application/use-cases/DeleteUserUseCase";
 import { DepositUseCase } from "@/application/use-cases/DepositUseCase";
 import { GetBankAccountUseCase } from "@/application/use-cases/GetBankAccountUseCase";
 import { GetUserUseCase } from "@/application/use-cases/GetUserUseCase";
-import { WithdrawlUseCase } from "@/application/use-cases/WithdrawlUseCase";
+import { WithdrawUseCase } from "@/application/use-cases/WithdrawUseCase";
 
 export const clientContainer = buildDIContainer()
   .register(IOCServerHandlerToken, iocServerHandler)
@@ -16,6 +16,6 @@ export const clientContainer = buildDIContainer()
     serverConsumerProxy(DepositUseCase),
     serverConsumerProxy(GetBankAccountUseCase),
     serverConsumerProxy(GetUserUseCase),
-    serverConsumerProxy(WithdrawlUseCase),
+    serverConsumerProxy(WithdrawUseCase),
   ])
   .getResult();

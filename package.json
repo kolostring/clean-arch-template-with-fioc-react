@@ -12,9 +12,11 @@
     "fioc": "^1.2.4",
     "fioc-react": "^1.3.5",
     "fioc-server-utils": "^1.0.0",
+    "lowdb": "^7.0.1",
     "next": "15.5.3",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
