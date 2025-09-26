@@ -3,12 +3,14 @@ import { BankAccount } from "@/domain/entities/BankAccount";
 import { User } from "@/domain/entities/User";
 import { UserRepository } from "@/domain/repositories/UserRepository";
 import { createDIToken } from "fioc";
+import { AuthService } from "../services/AuthService";
 
 export const CreateUserUseCaseFactory =
-  (userRepo: UserRepository) =>
+  (userRepo: UserRepository, authService: AuthService) =>
   async (
     name: string,
     email: string,
+    password: string,
     amount: number
   ): Promise<Result<User>> => {
     const userResult = await userRepo.getUserByEmail(email);
@@ -21,9 +23,15 @@ export const CreateUserUseCaseFactory =
       return err(new Error("user with this email already exists"));
     }
 
+    const hashPasswordResult = await authService.hashPassword(password);
+    if (!hashPasswordResult.ok) {
+      return hashPasswordResult;
+    }
+
     const user = User.create({
       name,
       email,
+      password: hashPasswordResult.data,
     });
 
     const saveResult = await userRepo.saveUser(user);

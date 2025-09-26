@@ -17,56 +17,32 @@ const COOKIE_AUTH_TOKEN = "auth-token";
 const adapter = new JSONFile<{
   users: User[] | undefined;
   bankAccounts: BankAccount[] | undefined;
-  userPasswords:
-    | {
-        userID: string;
-        hashed: string;
-      }[]
-    | undefined;
 }>("db.json");
 // Updated to include default data initialization
-const db = new Low(adapter, { users: [], bankAccounts: [], userPasswords: [] });
+const db = new Low(adapter, { users: [], bankAccounts: [] });
 
 // Ensure db.data is initialized with default values
 await db.read();
 
 export const JWTAuthService: AuthService = {
-  async createUser(userID: string, password: string): Promise<Result<void>> {
-    try {
-      await db.read();
-      const salt = await bcrypt.genSalt(10);
-      const hashed = await bcrypt.hash(password, salt);
-
-      db.data.userPasswords = db.data.userPasswords ?? [];
-
-      db.data.userPasswords.push({
-        userID,
-        hashed,
-      });
-
-      console.log(db);
-      await db.write();
-      return ok(undefined);
-    } catch (e) {
-      return err(e as Error);
-    }
+  async hashPassword(password: string): Promise<Result<string>> {
+    const salt = await bcrypt.genSalt(10);
+    const hashed = await bcrypt.hash(password, salt);
+    return ok(hashed);
   },
-
   async loginUser(email: string, password: string): Promise<Result<void>> {
     try {
       await db.read();
 
       const userID = db.data.users?.find((u) => u.email === email)?.id;
 
-      const userPassword = db.data.userPasswords?.find(
-        (u) => u.userID === userID
-      );
+      const user = db.data.users?.find((u) => u.id === userID);
 
-      if (!userPassword) {
+      if (!user) {
         return err(new Error("User not found"));
       }
 
-      const isMatch = await bcrypt.compare(password, userPassword.hashed);
+      const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
         return err(new Error("Invalid password"));
@@ -95,7 +71,7 @@ export const JWTAuthService: AuthService = {
     return ok(undefined);
   },
 
-  async getUser() {
+  async getLogedUser() {
     try {
       await db.read();
       const token = (await cookies()).get(COOKIE_AUTH_TOKEN)?.value;

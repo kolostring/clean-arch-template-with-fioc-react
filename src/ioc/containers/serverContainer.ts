@@ -1,23 +1,3 @@
-import {
-  CreateUserController,
-  CreateUserControllerFactory,
-} from "@/application/controllers/CreateUserController";
-import {
-  DepositController,
-  DepositControllerFactory,
-} from "@/application/controllers/DepositController";
-import {
-  LoginUserController,
-  LoginUserControllerFactory,
-} from "@/application/controllers/LoginUserController";
-import {
-  LogoutUserController,
-  LogoutUserControllerFactory,
-} from "@/application/controllers/LogoutUserController";
-import {
-  WithdrawController,
-  WithdrawControllerFactory,
-} from "@/application/controllers/WithdrawController";
 import { AuthService } from "@/application/services/AuthService";
 import {
   CreateUserUseCase,
@@ -40,6 +20,14 @@ import {
   GetUserUseCaseFactory,
 } from "@/application/use-cases/GetUserUseCase";
 import {
+  LoginUseCase,
+  LoginUseCaseFactory,
+} from "@/application/use-cases/LoginUseCase";
+import {
+  LogoutUseCase,
+  LogoutUseCaseFactory,
+} from "@/application/use-cases/LogoutUseCase";
+import {
   WithdrawUseCase,
   WithdrawUseCaseFactory,
 } from "@/application/use-cases/WithdrawUseCase";
@@ -51,61 +39,44 @@ import { buildDIContainer } from "fioc";
 export const serverContainer = buildDIContainer()
   .register(UserRepository, LowDBUserRepository)
   .register(AuthService, JWTAuthService)
-  .registerConsumerArray([
-    {
-      token: CreateUserUseCase,
-      factory: CreateUserUseCaseFactory,
-      dependencies: [UserRepository],
-    },
-    {
-      token: DeleteUserUseCase,
-      factory: DeleteUserUseCaseFactory,
-      dependencies: [UserRepository],
-    },
-    {
-      token: DepositUseCase,
-      factory: DepositUseCaseFactory,
-      dependencies: [UserRepository],
-    },
-    {
-      token: GetBankAccountUseCase,
-      factory: GetBankAccountUseCaseFactory,
-      dependencies: [UserRepository],
-    },
-    {
-      token: GetUserUseCase,
-      factory: GetUserUseCaseFactory,
-      dependencies: [UserRepository],
-    },
-    {
-      token: WithdrawUseCase,
-      factory: WithdrawUseCaseFactory,
-      dependencies: [UserRepository],
-    },
-  ])
   .registerConsumer({
-    token: CreateUserController,
-    factory: CreateUserControllerFactory,
-    dependencies: [CreateUserUseCase, AuthService],
-  })
-  .registerConsumer({
-    token: LoginUserController,
-    factory: LoginUserControllerFactory,
+    token: LoginUseCase,
+    factory: LoginUseCaseFactory,
     dependencies: [AuthService],
   })
   .registerConsumer({
-    token: LogoutUserController,
-    factory: LogoutUserControllerFactory,
+    token: LogoutUseCase,
+    factory: LogoutUseCaseFactory,
     dependencies: [AuthService],
   })
   .registerConsumer({
-    token: DepositController,
-    factory: DepositControllerFactory,
-    dependencies: [DepositUseCase, AuthService],
+    token: CreateUserUseCase,
+    factory: CreateUserUseCaseFactory,
+    dependencies: [UserRepository, AuthService],
   })
   .registerConsumer({
-    token: WithdrawController,
-    factory: WithdrawControllerFactory,
-    dependencies: [WithdrawUseCase, AuthService],
+    token: DeleteUserUseCase,
+    factory: DeleteUserUseCaseFactory,
+    dependencies: [UserRepository, AuthService],
+  })
+  .registerConsumer({
+    token: DepositUseCase,
+    factory: DepositUseCaseFactory,
+    dependencies: [UserRepository, AuthService],
+  })
+  .registerConsumer({
+    token: GetBankAccountUseCase,
+    factory: GetBankAccountUseCaseFactory,
+    dependencies: [UserRepository, AuthService],
+  })
+  .registerConsumer({
+    token: GetUserUseCase,
+    factory: GetUserUseCaseFactory,
+    dependencies: [UserRepository, AuthService],
+  })
+  .registerConsumer({
+    token: WithdrawUseCase,
+    factory: WithdrawUseCaseFactory,
+    dependencies: [UserRepository, AuthService],
   })
   .getResult();

@@ -2,10 +2,10 @@ import { Result } from "@/common/Result";
 import { createDIToken } from "fioc";
 
 export interface AuthService {
-  createUser(userID: string, password: string): Promise<Result<void>>;
+  hashPassword(password: string): Promise<Result<string>>;
   loginUser(email: string, password: string): Promise<Result<void>>;
   logoutUser(): Promise<Result<void>>;
-  getUser(): Promise<
+  getLogedUser(): Promise<
     Result<null | {
       userID: string;
     }>

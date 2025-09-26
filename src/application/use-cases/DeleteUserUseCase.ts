@@ -1,10 +1,22 @@
 import { err, Result } from "@/common/Result";
 import { UserRepository } from "@/domain/repositories/UserRepository";
 import { createDIToken } from "fioc";
+import { AuthService } from "../services/AuthService";
 
 export const DeleteUserUseCaseFactory =
-  (userRepo: UserRepository) =>
-  async (userID: string): Promise<Result<void>> => {
+  (userRepo: UserRepository, authService: AuthService) =>
+  async (): Promise<Result<void>> => {
+    const logedUserResult = await authService.getLogedUser();
+    if (!logedUserResult.ok) {
+      return logedUserResult;
+    }
+
+    if (!logedUserResult.data) {
+      return err(new Error("Not authenticated"));
+    }
+
+    const userID = logedUserResult.data.userID;
+
     const findUserResult = await userRepo.getUser(userID);
     if (!findUserResult.ok) {
       return findUserResult;
