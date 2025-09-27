@@ -44,6 +44,7 @@ export const CreateUserUseCaseFactory =
       bankAccount
     );
     if (!saveBankAccountResult.ok) {
+      await userRepo.deleteUser(user.id);
       return saveBankAccountResult;
     }
 
