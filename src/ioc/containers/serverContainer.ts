@@ -39,44 +39,46 @@ import { buildDIContainer } from "fioc";
 export const serverContainer = buildDIContainer()
   .register(UserRepository, LowDBUserRepository)
   .register(AuthService, JWTAuthService)
-  .registerConsumer({
-    token: LoginUseCase,
-    factory: LoginUseCaseFactory,
-    dependencies: [AuthService],
-  })
-  .registerConsumer({
-    token: LogoutUseCase,
-    factory: LogoutUseCaseFactory,
-    dependencies: [AuthService],
-  })
-  .registerConsumer({
-    token: CreateUserUseCase,
-    factory: CreateUserUseCaseFactory,
-    dependencies: [UserRepository, AuthService],
-  })
-  .registerConsumer({
-    token: DeleteUserUseCase,
-    factory: DeleteUserUseCaseFactory,
-    dependencies: [UserRepository, AuthService],
-  })
-  .registerConsumer({
-    token: DepositUseCase,
-    factory: DepositUseCaseFactory,
-    dependencies: [UserRepository, AuthService],
-  })
-  .registerConsumer({
-    token: GetBankAccountUseCase,
-    factory: GetBankAccountUseCaseFactory,
-    dependencies: [UserRepository, AuthService],
-  })
-  .registerConsumer({
-    token: GetUserUseCase,
-    factory: GetUserUseCaseFactory,
-    dependencies: [UserRepository, AuthService],
-  })
-  .registerConsumer({
-    token: WithdrawUseCase,
-    factory: WithdrawUseCaseFactory,
-    dependencies: [UserRepository, AuthService],
-  })
+  .registerFactoryArray([
+    {
+      token: LoginUseCase,
+      factory: LoginUseCaseFactory,
+      dependencies: [AuthService],
+    },
+    {
+      token: LogoutUseCase,
+      factory: LogoutUseCaseFactory,
+      dependencies: [AuthService],
+    },
+    {
+      token: CreateUserUseCase,
+      factory: CreateUserUseCaseFactory,
+      dependencies: [UserRepository, AuthService],
+    },
+    {
+      token: DeleteUserUseCase,
+      factory: DeleteUserUseCaseFactory,
+      dependencies: [UserRepository, AuthService],
+    },
+    {
+      token: DepositUseCase,
+      factory: DepositUseCaseFactory,
+      dependencies: [UserRepository, AuthService],
+    },
+    {
+      token: GetBankAccountUseCase,
+      factory: GetBankAccountUseCaseFactory,
+      dependencies: [UserRepository, AuthService],
+    },
+    {
+      token: GetUserUseCase,
+      factory: GetUserUseCaseFactory,
+      dependencies: [UserRepository, AuthService],
+    },
+    {
+      token: WithdrawUseCase,
+      factory: WithdrawUseCaseFactory,
+      dependencies: [UserRepository, AuthService],
+    },
+  ])
   .getResult();

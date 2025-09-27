@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
-    "fioc": "^1.2.4",
+    "fioc": "^1.3.2",
     "fioc-react": "^1.3.5",
     "fioc-server-utils": "^1.0.0",
     "jsonwebtoken": "^9.0.2",

@@ -9,7 +9,7 @@ import { WithdrawUseCase } from "@/application/use-cases/WithdrawUseCase";
 
 export const clientContainer = buildDIContainer()
   .register(IOCServerHandlerToken, iocServerHandler)
-  .registerConsumerArray([
+  .registerFactoryArray([
     serverConsumerProxy(CreateUserUseCase),
     serverConsumerProxy(LoginUseCase),
     serverConsumerProxy(LogoutUseCase),
