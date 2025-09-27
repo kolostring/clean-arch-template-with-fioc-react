@@ -30,7 +30,7 @@ export const WithdrawUseCaseFactory =
 
     try {
       const saveResult = await userRepo.saveUserBankAccount(
-        BankAccount.withdrawl(account, amount)
+        BankAccount.withdraw(account, amount)
       );
       return saveResult;
     } catch (e) {

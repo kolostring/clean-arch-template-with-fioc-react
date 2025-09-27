@@ -3,7 +3,7 @@ import { taxesPercent } from "../const/taxes-percent";
 export type BankAccount = {
   userID: string;
   balance: number;
-  operationsLog: (`Deposit ${number}$` | `Withdrawl ${number}$`)[];
+  operationsLog: (`Deposit ${number}$` | `Withdraw ${number}$`)[];
 };
 
 export const BankAccount = {
@@ -19,7 +19,7 @@ export const BankAccount = {
     operationsLog: [...account.operationsLog, `Deposit ${amount}$`],
   }),
 
-  withdrawl: (account: BankAccount, amount: number): BankAccount => {
+  withdraw: (account: BankAccount, amount: number): BankAccount => {
     if (amount > account.balance) {
       throw new Error("Amount is greater than balance");
     }
@@ -27,7 +27,7 @@ export const BankAccount = {
     return {
       ...account,
       balance: account.balance - amount,
-      operationsLog: [...account.operationsLog, `Withdrawl ${amount}$`],
+      operationsLog: [...account.operationsLog, `Withdraw ${amount}$`],
     };
   },
 };
