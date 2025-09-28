@@ -39,13 +39,13 @@ export const JWTAuthService: AuthService = {
       const user = db.data.users?.find((u) => u.id === userID);
 
       if (!user) {
-        return err(new Error("User not found"));
+        return err("User not found");
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        return err(new Error("Invalid password"));
+        return err("Invalid password");
       }
 
       const token = jwt.sign(
@@ -62,7 +62,10 @@ export const JWTAuthService: AuthService = {
 
       return ok(undefined);
     } catch (e) {
-      return err(e as Error);
+      if (e instanceof Error) {
+        return err(e.message);
+      }
+      return err("unknown error");
     }
   },
 
@@ -82,7 +85,10 @@ export const JWTAuthService: AuthService = {
       const decoded = jwt.verify(token, JWT_SECRET) as { userID: string };
       return ok(decoded);
     } catch (e) {
-      return err(e as Error);
+      if (e instanceof Error) {
+        return err(e.message);
+      }
+      return err("unknown error");
     }
   },
 };

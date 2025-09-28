@@ -11,7 +11,7 @@ export const GetBankAccountUseCaseFactory =
     }
 
     if (!logedUserResult.data) {
-      return err(new Error("Not authenticated"));
+      return err("Not authenticated");
     }
 
     const userID = logedUserResult.data.userID;
@@ -22,7 +22,7 @@ export const GetBankAccountUseCaseFactory =
     }
 
     if (!accountResult.data) {
-      return err(new Error("Bank account not found"));
+      return err("Bank account not found");
     }
 
     return ok(accountResult.data);

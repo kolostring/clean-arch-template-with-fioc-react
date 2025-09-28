@@ -12,7 +12,7 @@ export const DeleteUserUseCaseFactory =
     }
 
     if (!logedUserResult.data) {
-      return err(new Error("Not authenticated"));
+      return err("Not authenticated");
     }
 
     const userID = logedUserResult.data.userID;
@@ -23,7 +23,7 @@ export const DeleteUserUseCaseFactory =
     }
 
     if (!findUserResult.data) {
-      return err(new Error("User not found"));
+      return err("User not found");
     }
 
     const findAccountResult = await userRepo.getUserBankAccount(userID);
@@ -32,7 +32,7 @@ export const DeleteUserUseCaseFactory =
     }
 
     if (!findAccountResult.data) {
-      return err(new Error("User has no account"));
+      return err("User has no account");
     }
 
     const deleteAccountResult = await userRepo.deleteUserBankAccount(userID);

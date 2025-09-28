@@ -10,7 +10,7 @@ export const GetUserUseCaseFactory =
     }
 
     if (!logedUserResult.data) {
-      return err(new Error("Not authenticated"));
+      return err("Not authenticated");
     }
 
     const userID = logedUserResult.data.userID;
@@ -21,7 +21,7 @@ export const GetUserUseCaseFactory =
     }
 
     if (!userResult.data) {
-      return err(new Error("User not found"));
+      return err("User not found");
     }
 
     return ok(userResult.data);

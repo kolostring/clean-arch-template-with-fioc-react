@@ -25,7 +25,10 @@ export const LowDBUserRepository: UserRepository = {
         db.data?.bankAccounts?.find((a) => a.userID === userID) || null;
       return ok(account);
     } catch (e) {
-      return err(e as Error);
+      if (e instanceof Error) {
+        return err(e.message);
+      }
+      return err("unknown error");
     }
   },
 
@@ -40,7 +43,10 @@ export const LowDBUserRepository: UserRepository = {
       await db.write();
       return ok(undefined);
     } catch (e) {
-      return err(e as Error);
+      if (e instanceof Error) {
+        return err(e.message);
+      }
+      return err("unknown error");
     }
   },
 
@@ -54,7 +60,10 @@ export const LowDBUserRepository: UserRepository = {
       await db.write();
       return ok(undefined);
     } catch (e) {
-      return err(e as Error);
+      if (e instanceof Error) {
+        return err(e.message);
+      }
+      return err("unknown error");
     }
   },
 
@@ -64,7 +73,10 @@ export const LowDBUserRepository: UserRepository = {
       const user = db.data?.users?.find((u) => u.id === userID) || null;
       return ok(user);
     } catch (e) {
-      return err(e as Error);
+      if (e instanceof Error) {
+        return err(e.message);
+      }
+      return err("unknown error");
     }
   },
 
@@ -74,7 +86,10 @@ export const LowDBUserRepository: UserRepository = {
       const user = db.data?.users?.find((u) => u.email === email) || null;
       return ok(user);
     } catch (e) {
-      return err(e as Error);
+      if (e instanceof Error) {
+        return err(e.message);
+      }
+      return err("unknown error");
     }
   },
 
@@ -87,7 +102,10 @@ export const LowDBUserRepository: UserRepository = {
       await db.write();
       return ok(undefined);
     } catch (e) {
-      return err(e as Error);
+      if (e instanceof Error) {
+        return err(e.message);
+      }
+      return err("unknown error");
     }
   },
 
@@ -99,7 +117,10 @@ export const LowDBUserRepository: UserRepository = {
       await db.write();
       return ok(undefined);
     } catch (e) {
-      return err(e as Error);
+      if (e instanceof Error) {
+        return err(e.message);
+      }
+      return err("unknown error");
     }
   },
 };

@@ -4,7 +4,11 @@ type SuccessResult<T> = {
 };
 
 type ErrorResult = {
-  error: Error;
+  error: {
+    message: string;
+    code?: string;
+    stack?: string;
+  };
   ok: false;
 };
 
@@ -17,9 +21,17 @@ export function ok<T>(data: T): Result<T> {
   };
 }
 
-export function err(error: Error): ErrorResult {
+export function err(
+  message: string,
+  code?: string,
+  stack?: string
+): ErrorResult {
   return {
-    error,
+    error: {
+      message,
+      code,
+      stack,
+    },
     ok: false,
   };
 }

@@ -20,7 +20,7 @@ export const CreateUserUseCaseFactory =
 
     const userFound = userResult.data;
     if (userFound) {
-      return err(new Error("user with this email already exists"));
+      return err("user with this email already exists");
     }
 
     const hashPasswordResult = await authService.hashPassword(password);

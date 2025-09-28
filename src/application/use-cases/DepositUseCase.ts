@@ -13,7 +13,7 @@ export const DepositUseCaseFactory =
     }
 
     if (!logedUserResult.data) {
-      return err(new Error("Not authenticated"));
+      return err("Not authenticated");
     }
 
     const userID = logedUserResult.data.userID;
@@ -25,7 +25,7 @@ export const DepositUseCaseFactory =
 
     const account = accountResult.data;
     if (!account) {
-      return err(new Error("User has no account"));
+      return err("User has no account");
     }
 
     try {
@@ -33,7 +33,10 @@ export const DepositUseCaseFactory =
       const saveResult = await userRepo.saveUserBankAccount(newState);
       return saveResult;
     } catch (e) {
-      return err(e as Error);
+      if (e instanceof Error) {
+        return err(e.message);
+      }
+      return err("unknown error");
     }
   };
 
