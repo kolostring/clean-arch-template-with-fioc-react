@@ -52,6 +52,6 @@ export const CreateUserUseCaseFactory =
   };
 
 export const CreateUserUseCase =
-  createDIToken<ReturnType<typeof CreateUserUseCaseFactory>>(
+  createDIToken<ReturnType<typeof CreateUserUseCaseFactory>>().as(
     "CreateUserUseCase"
   );

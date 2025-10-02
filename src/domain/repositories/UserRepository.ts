@@ -13,4 +13,4 @@ export interface UserRepository {
   deleteUser(userID: string): Promise<Result<void>>;
 }
 
-export const UserRepository = createDIToken<UserRepository>("UserRepository");
+export const UserRepository = createDIToken<UserRepository>().as("UserRepository");

@@ -50,6 +50,6 @@ export const DeleteUserUseCaseFactory =
   };
 
 export const DeleteUserUseCase =
-  createDIToken<ReturnType<typeof DeleteUserUseCaseFactory>>(
+  createDIToken<ReturnType<typeof DeleteUserUseCaseFactory>>().as(
     "DeleteUserUseCase"
   );

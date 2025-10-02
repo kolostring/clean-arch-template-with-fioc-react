@@ -6,4 +6,4 @@ export const LogoutUseCaseFactory = (authService: AuthService) => async () => {
 };
 
 export const LogoutUseCase =
-  createDIToken<ReturnType<typeof LogoutUseCaseFactory>>("LogoutUseCase");
+  createDIToken<ReturnType<typeof LogoutUseCaseFactory>>().as("LogoutUseCase");

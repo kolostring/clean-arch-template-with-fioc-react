@@ -42,4 +42,6 @@ export const WithdrawUseCaseFactory =
   };
 
 export const WithdrawUseCase =
-  createDIToken<ReturnType<typeof WithdrawUseCaseFactory>>("WithdrawlUseCase");
+  createDIToken<ReturnType<typeof WithdrawUseCaseFactory>>().as(
+    "WithdrawlUseCase"
+  );

@@ -12,4 +12,4 @@ export interface AuthService {
   >;
 }
 
-export const AuthService = createDIToken<AuthService>("AuthService");
+export const AuthService = createDIToken<AuthService>().as("AuthService");

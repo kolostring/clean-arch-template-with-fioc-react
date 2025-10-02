@@ -1,5 +1,8 @@
 import { buildDIContainer } from "fioc";
-import { IOCServerHandlerToken, serverConsumerProxy } from "fioc-server-utils";
+import {
+  IoCServerHandlerToken,
+  createServerControllerProxy,
+} from "fioc-server-utils";
 import { iocServerHandler } from "./iocServerHandler.action";
 import { CreateUserUseCase } from "@/application/use-cases/CreateUserUseCase";
 import { LoginUseCase } from "@/application/use-cases/LoginUseCase";
@@ -8,12 +11,12 @@ import { DepositUseCase } from "@/application/use-cases/DepositUseCase";
 import { WithdrawUseCase } from "@/application/use-cases/WithdrawUseCase";
 
 export const clientContainer = buildDIContainer()
-  .register(IOCServerHandlerToken, iocServerHandler)
+  .register(IoCServerHandlerToken, iocServerHandler)
   .registerFactoryArray([
-    serverConsumerProxy(CreateUserUseCase),
-    serverConsumerProxy(LoginUseCase),
-    serverConsumerProxy(LogoutUseCase),
-    serverConsumerProxy(DepositUseCase),
-    serverConsumerProxy(WithdrawUseCase),
+    createServerControllerProxy(CreateUserUseCase),
+    createServerControllerProxy(LoginUseCase),
+    createServerControllerProxy(LogoutUseCase),
+    createServerControllerProxy(DepositUseCase),
+    createServerControllerProxy(WithdrawUseCase),
   ])
   .getResult();

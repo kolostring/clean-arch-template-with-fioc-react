@@ -7,4 +7,4 @@ export const LoginUseCaseFactory =
   };
 
 export const LoginUseCase =
-  createDIToken<ReturnType<typeof LoginUseCaseFactory>>("LoginUseCase");
+  createDIToken<ReturnType<typeof LoginUseCaseFactory>>().as("LoginUseCase");

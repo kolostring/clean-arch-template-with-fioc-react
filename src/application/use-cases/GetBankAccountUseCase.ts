@@ -30,4 +30,4 @@ export const GetBankAccountUseCaseFactory =
 
 export const GetBankAccountUseCase = createDIToken<
   ReturnType<typeof GetBankAccountUseCaseFactory>
->("GetBankAccountUseCase");
+>().as("GetBankAccountUseCase");

@@ -28,4 +28,6 @@ export const GetUserUseCaseFactory =
   };
 
 export const GetUserUseCase =
-  createDIToken<ReturnType<typeof GetUserUseCaseFactory>>("GetUserUseCase");
+  createDIToken<ReturnType<typeof GetUserUseCaseFactory>>().as(
+    "GetUserUseCase"
+  );

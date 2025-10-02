@@ -41,4 +41,6 @@ export const DepositUseCaseFactory =
   };
 
 export const DepositUseCase =
-  createDIToken<ReturnType<typeof DepositUseCaseFactory>>("DepositUseCase");
+  createDIToken<ReturnType<typeof DepositUseCaseFactory>>().as(
+    "DepositUseCase"
+  );
